@@ -59,7 +59,7 @@ if __name__ == '__main__':
     parser.add_argument('--command', type=int, default=1, help="0: create matrices - 1: run algorithms")
     # parser.add_argument('--model', type=str, default=None)
     args = parser.parse_args()
-    filename = 'dev-1/dev-1-task-' + str(args.task) + '.csv'
+    filename = '../dev-1/dev-1-task-' + str(args.task) + '.csv'
     ids, labels, texts = read_tweets(filename, args.task)
     if args.command == 0:
         create_matrices(ids, texts, args)
