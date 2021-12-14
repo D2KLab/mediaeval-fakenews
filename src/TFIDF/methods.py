@@ -1,4 +1,6 @@
 import numpy as np
+import pandas as pd
+from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 from sklearn.model_selection import train_test_split, StratifiedKFold, KFold
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
@@ -33,69 +35,66 @@ def define_scores():
     return metrics
 
 
-# MCC function that compute the score for every pair of truth-predicted labels and then compute the mean
-def computeMCC(y_test, y_pred):
-    value = 0
-    for y1, y2 in zip(y_test, y_pred):
-        '''if sum(y1) == 0:
-            y1 = np.append(y1, 1)
-        else:
-            y1 = np.append(y1, 0)
-        if sum(y2) == 0:
-            y2 = np.append(y2, 1)
-        else:
-            y2 = np.append(y2, 0)'''
-        try:
-            value += matthews_corrcoef(y1, y2)
-        except ValueError:
-            print(y1)
-            print(y2)
-            exit(1)
-    mcc = value / len(y_test)
-    return mcc
-
-
 # MCC function that compute score for each label
 def computeMCCclass(y_test, y_pred):
     mccs = []
     for i in range(len(y_test[0,:])):
         mccs.append(matthews_corrcoef(y_test[:,i], y_pred[:,i]))
+    global_mcc = np.mean(np.array(mccs))
+    mccs.append(global_mcc)
     return mccs
 
 
 def apply_fold(X_train, X_test, y_train, y_test, clf, params, metrics, task):
     if task == 1:
-        skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+        skf = StratifiedKFold(n_splits=4, shuffle=True, random_state=0)
     else:
-        skf = KFold(n_splits=5, shuffle=True, random_state=42)
+        skf = MultilabelStratifiedKFold(n_splits=4, shuffle=True, random_state=0)
+        #skf = KFold(n_splits=4, shuffle=True, random_state=0)
     gridsearch = GridSearchCV(clf, param_grid=params, scoring=metrics, cv=skf, refit='f1')
     gridsearch.fit(X_train, y_train)
     best_parameters = gridsearch.best_params_
     print(f'Best parameters: {best_parameters}')
     model = gridsearch.best_estimator_
     model.fit(X_train, y_train)
+    if task == 1:
+        try:
+            y_score = model.predict_proba(X_test)
+        except AttributeError:
+            y_score = model.predict(X_test)
     y_pred = model.predict(X_test)
     result = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
     # result = []
     if task == 1:
         en_y_pred = one_hot_encoding(y_pred)
         en_y_test = one_hot_encoding(y_test)
-    else:
-        en_y_pred = y_pred
-        en_y_test = y_test
-    roc = roc_auc_score(en_y_test, en_y_pred, average='weighted', multi_class='ovr')
-    if task == 1:
+        if np.array_equal(y_pred, y_score):
+            roc = roc_auc_score(en_y_test, en_y_pred, average='weighted', multi_class='ovr')
+        else:
+            roc = roc_auc_score(en_y_test, y_score, average='weighted', multi_class='ovr')
         mcc = matthews_corrcoef(y_test, y_pred)
     else:
-        mcc = computeMCCclass(np.array(en_y_test), np.array(en_y_pred))
+        roc = roc_auc_score(y_test, y_pred, average='weighted', multi_class='ovr')
+        mcc = computeMCCclass(np.array(y_test), np.array(y_pred))
     return result, roc, mcc
 
 
-def method_applier(X, y, clf_f, metrics, task):
-    if task == 1:
-        X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.25, random_state=0)
+def take_test(X, y, indices, task):
+    X_test = X[indices, :]
+    y_test = y[indices, :]
+    mask = np.ones(len(X[:, 0]), dtype=bool)
+    mask[indices] = False
+    X_train = X[mask, :]
+    y_train = y[mask, :]
+    return X_train, X_test, y_train, y_test
+
+
+def method_applier(X, y, clf_f, metrics, task, indices):
+    '''if task == 1:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.2, random_state=0)
     else:
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)'''
+    X_train, X_test, y_train, y_test = take_test(X, y, indices, task)
     result, roc, mcc = clf_f(X_train, X_test, y_train, y_test, metrics, task)
     return result, roc, mcc
 
@@ -107,7 +106,7 @@ def GaussianNB_Classifier(X_train, X_test, y_train, y_test, metrics, task):
     else:
         clf = GaussianNB()
         param_grid = {}
-    cm, report, auc = apply_fold(X_train.toarray(), X_test.toarray(), y_train, y_test, clf, param_grid, metrics, task)
+    cm, report, auc = apply_fold(X_train, X_test, y_train, y_test, clf, param_grid, metrics, task)
     # print(f'Best parameters: {clf.best_params_}')
     return cm, report, auc
 
@@ -120,7 +119,7 @@ def BernoulliNB_Classifier(X_train, X_test, y_train, y_test, metrics, task):
     else:
         clf = BernoulliNB()
         param_grid = {'alpha': [0.001, 0.01, 0.1, 1, 10]}
-    cm, report, auc = apply_fold(X_train.toarray(), X_test.toarray(), y_train, y_test, clf, param_grid, metrics, task)
+    cm, report, auc = apply_fold(X_train, X_test, y_train, y_test, clf, param_grid, metrics, task)
     # print(f'Best parameters: {clf.best_params_}')
     return cm, report, auc
 
