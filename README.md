@@ -6,6 +6,13 @@ In order to tackle this challenge, we studied three different kind of approaches
 
 The code implementation of the three approachs are available in [./Codes/](./Codes/)
 
+Our runs are available in [./runs/](./runs/).
+ - Run 1 is TFIDF
+ - Run 2 is CTBert
+ - No run 3
+ - Run 4 is task-3-CTBert
+ - Run 5 is late fusion ensembling
+
 
 ## References
 <a id="1">[1]</a> 
