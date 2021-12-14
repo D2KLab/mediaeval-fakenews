@@ -81,6 +81,27 @@ def read_tweets(filename, task):
     return ids, labels, tweets
 
 
+def read_tweets_text(filename):
+    ids = []
+    tweets = []
+    with open(filename, 'r', encoding="utf8") as f:
+        reader = csv.reader(f, delimiter=',')
+        for row in reader:
+            if len(row) > 2:
+                text = ''
+                for i in range(1, len(row)):
+                    if i != 1:
+                        text += ', ' + row[i]
+                    else:
+                        text += row[i]
+            else:
+                text = row[1]
+            ids.append(int(row[0]))
+            tweets.append(text)
+    return ids, tweets
+
+
+
 def hash_f(token, num_buckets):
     """Unsigned 32 bit murmurhash for feature hashing."""
     return murmurhash3_32(token, positive=True) % num_buckets
@@ -156,3 +177,9 @@ def compute_tfidf_vect(data, n):
     vectorizer = TfidfVectorizer(tokenizer=tokenizer_call, lowercase=True, ngram_range=(1, n))
     tfidf_X = vectorizer.fit_transform(data)
     return tfidf_X
+
+def compute_test_tfidf(train, text, n):
+    vectorizer = TfidfVectorizer(tokenizer=tokenizer_call, lowercase=True, ngram_range=(1, n))
+    X_train = vectorizer.fit_transform(train)
+    X_test = vectorizer.transform(text)
+    return X_train, X_test
