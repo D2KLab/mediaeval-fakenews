@@ -2,9 +2,12 @@
 
 This repository contains D2KLab participation to the MediaEval FakeNews challenge 2021 [[1]](#1).
 
-In order to tackle this challenge, we studied three different kind of approaches. The first uses a combination of TFIDF and machine learning algorithms. The second approach uses Natural Language Inference (NLI) combined with metadata from Wikipedia. The third approach aims at fine-tuning transformer-based models.
+In order to tackle this challenge, we studied three different kind of approaches. The first uses a combination of TFIDF and machine learning algorithms. The second approach uses Natural Language Inference (NLI) combined with metadata from Wikipedia. The third approach aims at fine-tuning transformer-based models. This last approach was the most performing one.
 
 The code implementation of the three approaches are available in [./src/](./src/)
+
+An inference notebook is available in [./inference/inference.ipynb](./inference/inference.ipynb)
+
 
 Our runs are available in [./runs/](./runs/).
  - Run 1 is TFIDF
