@@ -36,6 +36,19 @@ The results for our 3 approaches on a validation set and on the test set are sum
 
 ![plot](./results.png)
 
+## Requirements
+```
+python==3.8
+torch==1.6.0
+transformers==3.1.0
+pandas==1.3.3
+numpy==1.22.3
+emoji==0.5.3
+notebook
+scikit-learn
+```
+
+
 ## References
 <a id="1">[1]</a> 
 K. Pogorelov, D. Thilo Schroeder, S. Brenner, and J. Langguth (2021), FakeNews: Corona Virus and Conspiracies Multimedia Analysis Task at MediaEval
