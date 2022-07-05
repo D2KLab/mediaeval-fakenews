@@ -31,6 +31,10 @@ Our runs are available in [./runs/](./runs/).
  - Run 4 is task-3-CTBert
  - Run 5 is late fusion ensembling
 
+## Results
+The results for our 3 approaches on a validation set and on the test set are summarized on this figure.
+
+![plot](./results.png)
 
 ## References
 <a id="1">[1]</a> 
