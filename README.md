@@ -1,8 +1,11 @@
 # FakeNews: Corona Virus and Conspiracies Multimedia Analysis Task
 
 This repository contains D2KLab participation to the MediaEval FakeNews challenge 2021 [[1]](#1).
-The code implementation of the three approaches are available in [./src/](./src/)
-An inference notebook is available in [./inference/inference.ipynb](./inference/inference.ipynb)
+
+The code implementation of the three approaches are available in [./src/](./src/).
+
+An inference notebook is available in [./inference/inference.ipynb](./inference/inference.ipynb).
+
 All models are availailable for download [here](https://mediaeval-fakenews.tools.eurecom.fr/) and should be put in a directory ./models to run the inference notebook.
 
 ## Paper
