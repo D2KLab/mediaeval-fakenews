@@ -6,11 +6,13 @@ An inference notebook is available in [./inference/inference.ipynb](./inference/
 All models are availailable for download [here](https://mediaeval-fakenews.tools.eurecom.fr/) and should be put in a directory ./models to run the inference notebook.
 
 ## Paper
-You can read our paper [here] (https://2021.multimediaeval.com/paper65.pdf)
+You can read our paper [here](https://2021.multimediaeval.com/paper65.pdf)
 
 ## Citation
 ```
-Youri Peskine, Giulio Alfarano, Ismail Harrando, Paolo Papotti, Raphaël Troncy. Detecting COVID-19-Related Conspiracy Theories in Tweets. MediaEval 2021 - MediaEval Multimedia Evaluation benchmark. Workshop, Dec 2021, Online
+Youri Peskine, Giulio Alfarano, Ismail Harrando, Paolo Papotti, Raphaël Troncy.
+Detecting COVID-19-Related Conspiracy Theories in Tweets.
+MediaEval 2021 - MediaEval Multimedia Evaluation benchmark. Workshop, Dec 2021, Online
 ```
 
 ## Approach
