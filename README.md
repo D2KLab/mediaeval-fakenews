@@ -4,7 +4,9 @@ This repository contains the D2KLab participation to the [MediaEval 2021 FakeNew
 
 We proposed three approaches for which the code implementation are available in [./src/](./src/) for the ones who would like to retrain our models.
 
-An inference notebook is also directly available in [./inference/inference.ipynb](./inference/inference.ipynb). All models are available for download at https://mediaeval-fakenews.tools.eurecom.fr/index.html and should be put in a directory ./models to run the inference notebook.
+An inference notebook is also directly available in [./inference/inference.ipynb](./inference/inference.ipynb). All models are available for download at https://mediaeval-fakenews.tools.eurecom.fr/index.html
+
+The path to the models needs to be specified in the **Input** cell of the inference notebook.
 
 ## Citation
 ```
