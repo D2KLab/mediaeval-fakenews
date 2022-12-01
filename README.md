@@ -1,10 +1,16 @@
 # FakeNews: Corona Virus and Conspiracies Multimedia Analysis Task
 
-This repository contains the D2KLab participation to the [MediaEval 2021 FakeNews Task](https://multimediaeval.github.io/editions/2021/tasks/fakenews/).
+This repository contains the D2KLab participation to the [MediaEval 2021 FakeNews Task](https://multimediaeval.github.io/editions/2021/tasks/fakenews/) and [MediaEval 2022 FakeNews Task](https://multimediaeval.github.io/editions/2022/tasks/fakenews/) .
 
-We proposed three approaches for which the code implementation are available in [./src/](./src/) for the ones who would like to retrain our models.
+## 2022 Update
+This year's ``FakeNews Detection'' task aims at detecting 9 named conspiracy theories in tweets, as well as classifying misinformation spreaders in a user interaction graph.
 
-An inference notebook is also directly available in [./inference/inference.ipynb](./inference/inference.ipynb). All models are available for download at https://mediaeval-fakenews.tools.eurecom.fr/index.html
+We propose a Transformer-based approach (CT-BERT) to tackle task 1, and node embedding (node2vec) to tackle task 2. We then concatenate both text and graph features and perform classification for task 3. The code implementation is available in [./2022/src/](./2022/src/).
+
+# 2021
+We proposed three approaches for which the code implementation are available in [./2021/src/](./2021/src/) for the ones who would like to retrain our models.
+
+An inference notebook is also directly available in [./2021/inference/inference.ipynb](./2021/inference/inference.ipynb). All models are available for download at https://mediaeval-fakenews.tools.eurecom.fr/index.html
 
 The path to the models needs to be specified in the **Input** cell of the inference notebook.
 
@@ -21,15 +27,16 @@ https://2021.multimediaeval.com/paper65.pdf
 In order to tackle this challenge, we studied three different kind of approaches. The first uses a combination of TFIDF and machine learning algorithms. The second approach uses Natural Language Inference (NLI) combined with metadata from Wikipedia. The third approach aims at fine-tuning transformer-based models.
 This last approach was the most performing one and got the best results on all the tasks amongst all the participants.
 
-Our runs are available in [./runs/](./runs/).
+
+
+## Results (2021)
+The results for our 3 approaches on a validation set and on the test set are summarized on this figure.
+Our 2021 runs are available in [./2021/runs/](./2021/runs/).
  - Run 1 is TFIDF
  - Run 2 is CTBert
  - No run 3
  - Run 4 is task-3-CTBert
  - Run 5 is late fusion ensembling
-
-## Results
-The results for our 3 approaches on a validation set and on the test set are summarized on this figure.
 
 ![plot](./results.png)
 
