@@ -5,11 +5,9 @@ This repository contains the D2KLab participation to the [MediaEval 2021 FakeNew
 # 2022
 This year's ''FakeNews Detection'' task aims at detecting 9 named conspiracy theories in tweets, as well as classifying misinformation spreaders in a user interaction graph.
 
-We propose a Transformer-based approach (CT-BERT) to tackle task 1, and node embedding (node2vec) to tackle task 2. We then concatenate both text and graph features and perform classification for task 3. The code implementation is available in [./2022/src/](./2022/src/).
-
 ## Approach
 
-In order to tackle this challenge, we studied text-classification transformer-models for task 1 and 3, and node-classification models for task 2 and 3. Our approach leverages multiple **CT-BERT** models for text-classification and **node2vec** in combination with simple classifiers (MLP, RF) for node-classification. In all experiments, we split the data into 5 stratified cross-validation sets.
+In order to tackle this challenge, we studied text-classification transformer-models for task 1 and 3, and node-classification models for task 2 and 3. Our approach leverages multiple **CT-BERT** models for text-classification and **node2vec** in combination with simple classifiers (MLP, RF) for node-classification. We then concatenate both text and graph features and perform classification for task 3.
 
 ## Results (2022)
 The results obtained with our approach are summarised in the following figure:
