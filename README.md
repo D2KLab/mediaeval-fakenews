@@ -4,6 +4,7 @@ This repository contains the D2KLab participation to the [MediaEval 2021 FakeNew
 
 # 2022
 This year's ''FakeNews Detection'' task aims at detecting 9 named conspiracy theories in tweets, as well as classifying misinformation spreaders in a user interaction graph.
+The code implementation for each task are available in [./2022/src/](./2022/src/) 
 
 ## Approach
 
