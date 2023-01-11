@@ -13,6 +13,7 @@ In order to tackle this challenge, we studied text-classification transformer-mo
 
 ## Results (2022)
 The results obtained with our approach are summarised in the following figure:
+![plot](./results_2022.png)
 
 
 ## Main Takaways
